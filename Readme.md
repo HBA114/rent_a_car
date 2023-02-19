@@ -1,1 +1,1 @@
-# Kodlama.io Java 2022 Yazılım Geliştirici Yetirştirme Kampı
+# Kodlama.io Java 2022 Yazılım Geliştirici Yetiştirme Kampı
