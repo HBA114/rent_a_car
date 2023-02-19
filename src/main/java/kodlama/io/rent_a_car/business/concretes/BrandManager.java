@@ -1,6 +1,5 @@
 package kodlama.io.rent_a_car.business.concretes;
 
-import java.util.ArrayList;
 import java.util.List;
 import java.util.stream.Collectors;
 
@@ -26,17 +25,17 @@ public class BrandManager implements BrandService {
     @Override
     public List<GetAllBrandsResponse> getAll() {
         List<Brand> brands = brandRepository.findAll();
-        List<GetAllBrandsResponse> response = new ArrayList<GetAllBrandsResponse>();
 
-        for (Brand brand : brands) {
-            response.add(new GetAllBrandsResponse(brand.getId(), brand.getName()));
-        }
+        // List<GetAllBrandsResponse> response = new ArrayList<GetAllBrandsResponse>();
+        // for (Brand brand : brands) {
+        //     response.add(new GetAllBrandsResponse(brand.getId(), brand.getName()));
+        // }
 
         List<GetAllBrandsResponse> brandsResponse = brands.stream()
                 .map(brand -> modelMapperService.forResponse().map(brand, GetAllBrandsResponse.class))
                 .collect(Collectors.toList());
 
-        return response;
+        return brandsResponse;
     }
 
     @Override
