@@ -28,7 +28,6 @@ public class ModelManager implements ModelService {
                 .collect(Collectors.toList());
 
         return modelsResponse;
-
     }
 
     @Override
