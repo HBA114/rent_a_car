@@ -2,8 +2,10 @@ package kodlama.io.rent_a_car.entities.concretes;
 
 import java.util.List;
 
+import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
+import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
@@ -30,10 +32,11 @@ public class Model {
     @Column(name = "name")
     private String name;
 
-    @ManyToOne
-    @JoinColumn(name = "brand_id") // Could be written like brandId, postgresql uses snake case. Not must to use snake case
+    @ManyToOne(cascade = CascadeType.MERGE, fetch = FetchType.EAGER)
+    @JoinColumn(name = "brand_id", referencedColumnName = "id") // Could be written like brandId, postgresql uses snake
+                                                                // case. Not must to use snake case
     private Brand brand;
 
-    @OneToMany(mappedBy = "model")
+    @OneToMany(mappedBy = "model", cascade = CascadeType.ALL, fetch = FetchType.LAZY, orphanRemoval = true)
     private List<Car> cars;
 }
