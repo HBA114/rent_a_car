@@ -1,6 +1,7 @@
 package kodlama.io.rent_a_car.business.concretes;
 
 import java.util.List;
+import java.util.Optional;
 import java.util.stream.Collectors;
 
 import org.springframework.stereotype.Service;
@@ -9,7 +10,9 @@ import kodlama.io.rent_a_car.business.abstracts.ModelService;
 import kodlama.io.rent_a_car.business.requests.CreateModelRequest;
 import kodlama.io.rent_a_car.business.responses.GetAllModelsResponse;
 import kodlama.io.rent_a_car.core.utilities.mappers.ModelMapperService;
+import kodlama.io.rent_a_car.data_access.abstracts.BrandRepository;
 import kodlama.io.rent_a_car.data_access.abstracts.ModelRepository;
+import kodlama.io.rent_a_car.entities.concretes.Brand;
 import kodlama.io.rent_a_car.entities.concretes.Model;
 import lombok.AllArgsConstructor;
 
@@ -18,6 +21,7 @@ import lombok.AllArgsConstructor;
 public class ModelManager implements ModelService {
 
     private ModelRepository modelRepository;
+    private BrandRepository brandRepository;
     private ModelMapperService modelMapperService;
 
     @Override
@@ -33,7 +37,8 @@ public class ModelManager implements ModelService {
     @Override
     public void add(CreateModelRequest createModelRequest) {
         Model model = modelMapperService.forRequest().map(createModelRequest, Model.class);
-
+        Brand brand = brandRepository.findById(createModelRequest.getBrand_id()).get();
+        model.setBrand(brand);
         modelRepository.save(model);
     }
 
